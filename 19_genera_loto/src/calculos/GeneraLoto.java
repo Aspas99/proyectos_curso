@@ -30,6 +30,9 @@ public class GeneraLoto {
 			}
 		}
 	}
+	//Versión 2
+	//El método genera "n" números diferentes comprobando que sean siempre distintos
+	//y los guarda en el atributo array que devuelve 
 	public GeneraLoto(int n) {
 		numeros=new int[n];
 		int numero;
