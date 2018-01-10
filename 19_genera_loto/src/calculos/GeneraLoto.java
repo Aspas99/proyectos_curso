@@ -5,6 +5,8 @@ public class GeneraLoto {
 	public int [] numeros;
 	
 	private boolean existenum(int numero) {
+		//Comentario versión 3
+		//comprueba si el número ya está en el array
 		int i=0;
 		boolean existe=false;
 		while (i<numeros.length && numeros[i]>0 && !existe) {		
