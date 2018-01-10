@@ -19,8 +19,9 @@ public class GeneraLoto {
 	}
 	
 	private void ordena() {
-		int aux;
-		
+		//Comentario versión 4 desde casa
+		//ordenamos el array de menor a mayor.
+		int aux;		
 		for (int i=0;i<numeros.length;i++) {
 			for (int j=i+1;j<numeros.length;j++) {
 				if (numeros[j]<numeros[i]) {
