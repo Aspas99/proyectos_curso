@@ -26,35 +26,56 @@ public class MenuContactos {
 			int t=Integer.valueOf(opcion);
 			switch(t) {
 			case 1:
-				System.out.println("Introduzca una email: ");
-				email=sc.nextLine();
-				if (leeremail(email)) {
+					do {
+						System.out.println("Introduzca un email: ");
+						email=sc.nextLine();
+					}while (! leeremail(email)); 
 					System.out.println("Introduzca el nombre ");
 					nombre=sc.nextLine();
-				}
-				break;
+					agenda.anadircontacto(email, nombre);
+					break;
 			case 2:
-				System.out.println("Introduzca el email a buscar: ");
-				email=sc.nextLine();
-				if (agenda.buscar(email))
+					System.out.println("Introduzca el email a buscar: ");
+					email=sc.nextLine();
+					if (agenda.buscar(email)) {
+						System.out.println("El contacto del email " + email + "es:" + agenda.mostrarcontacto(email));
+					}
+				    break;
+			case 3:			
+					do {
+						System.out.print("Introduzca el email del contacto a eliminar: ");
+						email=sc.nextLine();
+					}while (! leeremail(email));
+						
+					if (agenda.buscar(email)) {
+						System.out.println("Se ha eliminado el contacto " + agenda.eliminar(email) + "correspondiente a " + email);;
+					}else
+						System.out.println("El email introducido no corresponde a ningún usuario");
+				break;
+			case 4:
+					String [] listado=agenda.mostrar();
+					for (String contacto:listado) {
+						System.out.print(contacto + "\t");
+					}
+					System.out.println();
+			 break;
+			case 5:
+				System.out.println("Hasta pronto!");
+			 break;
+			 default:
+				 System.out.println("La opcion no es válida");
 			}
-
-	}while(!opcion.equals("5"));
+		}while(!opcion.equals("5"));
 	}		
 		
 		static boolean leeremail(String correo) {
 			boolean valido=false;
-			do {
-				System.out.println("Introduzca una email: ");
-				correo=sc.nextLine();
 				if (!correo.contains("@")) {
 					System.out.println("La direccion " + correo + " Debe de incluir el simbolo \"@\" para ser un correo válido");
 				}else valido = true;
-				
-			}while (!valido);
 			
 			return valido;
 		}
-		}
+		
 
 }
