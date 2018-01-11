@@ -3,8 +3,8 @@ package calculo;
 import java.util.ArrayList;
 
 public class CalculoNotas {
-
-	public  ArrayList<Double> notas=new ArrayList<>();
+     //Se recomienda no declararlo como publico para que no pueda ser modificado por el llamante de clases externas si no es necesario  
+	 ArrayList<Double> notas=new ArrayList<>();
 	
 	/*public  void muestraNotas() {
 		
@@ -41,5 +41,8 @@ public class CalculoNotas {
 			notas.add(nota);
 	}
 	
+	public int size() {
+		return notas.size();
+	}
 	
 }

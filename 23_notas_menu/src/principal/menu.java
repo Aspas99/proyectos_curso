@@ -40,7 +40,7 @@ public class menu {
 						
 				break;
 				case 2:
-						if (n.notas.size()==0) {
+						if (n.size()==0) {
 							System.out.println("No hay notas por mostrar");
 						}else {
 							System.out.println("Hay :" + n.aprobados() +" aprobados");
