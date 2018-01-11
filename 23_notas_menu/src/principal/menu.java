@@ -51,7 +51,7 @@ public class menu {
 						System.out.println("La media es: " + n.media());
 						break;
 				case 4:
-						if (n.notas.size()==0) {
+						if (n.size()==0) {
 							System.out.println("No hay notas por mostrar");
 						}else {
 							for (Double p:n.muestraNotas()) {
