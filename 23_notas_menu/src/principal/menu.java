@@ -54,8 +54,11 @@ public class menu {
 						if (n.notas.size()==0) {
 							System.out.println("No hay notas por mostrar");
 						}else {
-							n.muestraNotas();
-						}
+							for (Double p:n.muestraNotas()) {
+								System.out.print(p + "\t");
+							}
+							System.out.println("");
+							}
 						break;
 				case 5:{
 					System.out.println("Hasta la próxima!");

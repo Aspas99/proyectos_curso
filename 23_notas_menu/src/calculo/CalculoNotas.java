@@ -6,15 +6,17 @@ public class CalculoNotas {
 
 	public  ArrayList<Double> notas=new ArrayList<>();
 	
-	public  void muestraNotas() {
+	/*public  void muestraNotas() {
 		
 		if (notas.size()>0) {
 			for (Double n:notas) {
 				System.out.print(n + "\t");
 			}
+			
 		}
-		
-		
+	*/
+	public Double[] muestraNotas() {
+		return notas.toArray(new Double[0]);
 	}
 	
 	public  Double media() {
