@@ -30,7 +30,7 @@ public class Triangulo extends Figura {
 	@Override
 	public double superficie() {
 		// TODO Auto-generated method stub
-		return (double) ((alto*base)/2);
+		return (alto*base)/2.0;
 	}
 
 }
