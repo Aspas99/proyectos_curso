@@ -24,7 +24,11 @@ public class Division {
 		catch (Exception ex) {
 			System.out.println("Error inesperado");//No se recomienda
 			ex.printStackTrace();
+		}finally {
+			System.out.println("Fin de programa!"); //Se ejecuta siempre que se presenta una excepcion
 		}
+		
+		System.out.println("Fin de programa!");//No tiene porqué ejecutarse siempre ..salvo que se inclya en un finally
 	}
 
 }
