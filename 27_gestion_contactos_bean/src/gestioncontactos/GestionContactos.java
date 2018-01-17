@@ -64,11 +64,11 @@ public class GestionContactos {
 	//cambiar los dominios de los correos por el dominio nuevo. Aqui estamos implementando el metodo abstracto apply  Bifunction ..que esn este caso 
     //devuelve un tipo R,que es del mismo tipo que la clave "K" del Hashmap
 	public void cambiarDominio(String nuevo) {
-		agenda.replaceAll((k,v)->{  		String email=v.getEmail();		
-									       email=email.substring(0, email.lastIndexOf("."));
-									        email=email+"." +nuevo;
-								v.setEmail(email);
-								return v;
+		agenda.replaceAll((k,v)->{ 	String email=v.getEmail();		
+									email=email.substring(0, email.lastIndexOf("."));
+									email=email+"." +nuevo;
+								    v.setEmail(email);
+								    return v;
 							});
 		}
 	
