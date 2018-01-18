@@ -27,7 +27,7 @@ public class Cajero {
 	    double cantidad;
 	    int t;
 	    cantidad=leerCantidad("Introduzca el saldo de la cuenta a crear: ");
-	    Movimiento m=new Movimiento(cantidad);
+	    Movimiento n, m=new Movimiento(cantidad);
 		do {			
 			System.out.println("1.-Ingresar");
 			System.out.println("2.-Extraer");
@@ -40,16 +40,21 @@ public class Cajero {
 			switch(t) {
 				case 1:{
 					cantidad=leerCantidad("Introduzca una cantidad a ingresar: ");
-					m.setMovimiento("ingreso", cantidad);
-					movimientos.add(m);
+					n=new Movimiento(m.getSaldo());
+					n.setMovimiento("ingreso", cantidad);
+					movimientos.add(n);
+					m=n;
 					break;
 				}
 				case 2:{
 					cantidad=leerCantidad("Introduzca una cantidad a retirar: ");
 					if ((m.getSaldo() - cantidad)<0) 
 						System.out.println("No dispone de saldo suficiente para esa cantidad");
-					else {m.setMovimiento("retirada", cantidad);
-						movimientos.add(m);
+					else{
+						n=new Movimiento(m.getSaldo());
+						n.setMovimiento("retirada", cantidad);
+						movimientos.add(n);
+						m=n;
 					}
 					break;
 				}
@@ -60,6 +65,7 @@ public class Cajero {
 						
 						System.out.println("movimiento nª" + (++contador) + ": Tipo:" + mov.getTipoMovimiento() +", cantidad:" + mov.getCantidad() + ", Saldo:" + mov.getSaldo());
 					}
+					break;
 				}
 				case 4:{
 					System.out.println("Fin del programa, vuelva pronto!");

@@ -13,7 +13,7 @@ public class Cuenta {
 		saldo+=cant;
 	}
 	public void extraer(double cant) {
-		saldo=-cant;
+		saldo-=cant;
 	}
 	
 	public double getSaldo() {

@@ -6,7 +6,7 @@ public class Movimiento extends Cuenta {
     private double cantidad;
 	public Movimiento(double saldo) {
 		super(saldo);
-	//	movimientos=new ArrayList<>();
+	
 		
 	}
 	public void setMovimiento(String tipoMovimiento,double cantidad) {
@@ -21,7 +21,7 @@ public class Movimiento extends Cuenta {
 				}
 				break;
 			}case "retirada":{
-				if ((getSaldo()-cantidad)>0 && cantidad>0) {
+				if ((this.getSaldo()-cantidad)>0 && cantidad>0) {
 					this.extraer(cantidad);
 					this.cantidad=cantidad;
 				}
