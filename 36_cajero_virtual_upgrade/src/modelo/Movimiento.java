@@ -80,14 +80,21 @@ public void setMovimiento(int idMovimiento, int idCuenta, double cantidad, Date 
 			}
 		}
 		
+		java.util.Date dt = new java.util.Date();
 
-		java.sql.Date fechasql=new java.sql.Date(fecha.getTime());
+		java.text.SimpleDateFormat sdf = 
+		     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		String currentTime = sdf.format(dt);
+		
+		//java.sql.Date fechasql=new java.sql.Date(fecha.getTime());
 		String sql="insert into movimientos(idMovimiento,idCuenta,cantidad,fecha,operacion) values(?,?,?,?,?)";
 		PreparedStatement ps = cn.prepareStatement(sql);
 		ps.setInt(1,idMovimiento);
 		ps.setInt(2,idCuenta);
 		ps.setDouble(3, cantidad);
-		ps.setDate(4, fechasql);
+		ps.setString(4, currentTime);
+		//ps.setDate(4, fechasql);
 		ps.setString(5, operacion);
 		ps.execute();//en este caso no se pasa como parametro la query en el string
 	}catch(SQLException ex) {
@@ -98,7 +105,6 @@ public void setMovimiento(int idMovimiento, int idCuenta, double cantidad, Date 
 
 public List<Movimiento> listaMovimientos(int numMovimientos){
 	ArrayList<Movimiento> movimientos = new ArrayList<>();
-	int contador=0;
 	try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/bancabd", "root", "toor");) {
 		
 		Statement st=cn.createStatement();
