@@ -41,7 +41,12 @@ public class Presentacion {
 				List<Contacto> todos = gcontactos.recuperarTodos();//Implementa el método accept del forEach (accept(T t)  		
 				todos.forEach(c->System.out.println(c.getNombre() + "-" +c.getEmail() + "-"+ c.getTelefono()));//Expresion lambda c->codigo
 				break;
-			}default: System.out.println("Opcion no disponible");
+			}
+			case 5:{
+				System.out.println("Finalizacion del programa, vuelva pronto");
+				break;
+			}
+			default: System.out.println("Opcion no disponible");
 		}
 			
 
