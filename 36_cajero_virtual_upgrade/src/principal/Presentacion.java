@@ -41,10 +41,17 @@ public class Presentacion {
 	    String fechaF=df.format(fecha);
 	    System.out.println("La fecha actual es :" + fechaF);
 	  //   System.out.println("La fecha actual es :" + ParseFecha(fechaF));
-	    c=leerCuenta("Introduzca el numero  de la cuenta a buscar: ");
-	   // Movimiento n, m=new Movimiento(cantidad);
-	    System.out.println("La fecha es " + fecha);
-	    
+	   do {
+		   c=leerCuenta("Introduzca el numero  de la cuenta a buscar: ");
+		   // Movimiento n, m=new Movimiento(cantidad);
+		    
+		    //Falta implementar la validación de la cuenta
+		   //O incluir una salida del metodo main() con return; 
+		   if (c==null) {
+			   System.out.println("La cuenta no existe, introduzca de nuevo el número");
+		   }
+	   } while(c==null);
+	   
 		do {			
 			System.out.println("1.-Ingresar");
 			System.out.println("2.-Extraer");
@@ -57,6 +64,8 @@ public class Presentacion {
 		    t=Integer.valueOf(opcion);
 			switch(t) {
 			case 1:{
+				//mejorar incluyendo un método que refleje los tipos de movimiento
+			
 				System.out.println("Introduzca la cantidad a ingresar:");
 				 cantidad=Double.parseDouble(sc.nextLine());
 				Movimiento m=new Movimiento(Movimiento.last()+1,c.getIdCuenta(),c.getSaldo(c.getIdCuenta()),
@@ -79,7 +88,9 @@ public class Presentacion {
 					destino=Integer.parseInt(sc.nextLine());
 					System.out.println("Introduzca la cantidad a transferir:");
 					 cantidad=Double.parseDouble(sc.nextLine());
-					 if (transferencia(origen,destino,cantidad))
+					 Movimiento m=new Movimiento(Movimiento.last()+1,c.getIdCuenta(),c.getSaldo(c.getIdCuenta()),
+								cantidad,fecha,"ingreso");
+					 if (m.transferencia(origen,destino,cantidad))
 						 System.out.println("La transferencia se ha realizado con éxito");
 					 else System.out.println("No se ha podido realizar la transferencia");
 					break;
@@ -91,7 +102,7 @@ public class Presentacion {
 					List <Movimiento> lista=m.listaMovimientos(5);
 					for (Movimiento a:lista) {
 						fechaF=df.format(a.getFecha());
-						System.out.println("Movimiento id:" + a.getIdMovimiento() + " fecha:" + fechaF + " Cantidad:" + a.getCantidad() +
+						System.out.println("Movimiento id:" + a.getIdMovimiento() + " fecha:" + a.getFecha() + " Cantidad:" + a.getCantidad() +
 					" Operacion:" + a.getOperacion() );
 					}
 					System.out.println("El saldo actual es:"  + m.getSaldo(c.getIdCuenta()));
@@ -109,36 +120,7 @@ public class Presentacion {
 	
 
 
- static  boolean transferencia(int idCuentaOrigen,int idCuentaDestino,double cantidad) {
-	Cuenta origen=null;
-	Cuenta destino=null;
-	Movimiento m=null;
-	boolean resultado=false;
-	java.util.Date fecha=new Date();
-	Movimiento m1=null,m2=null;
-	
-	try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/bancabd", "root", "toor"))
-	{	
-		origen=new Cuenta(idCuentaOrigen,0);
-	    destino=new Cuenta(idCuentaDestino,0);
-
-		double saldoorigen=origen.getSaldo(idCuentaOrigen);
-		if (saldoorigen>=cantidad) {
-			//java.sql.Date fechasql=new java.sql.Date(fecha.getTime());
-			origen.extraer(cantidad);
-			destino.ingresar(cantidad);
-			m1=new Movimiento(Movimiento.last()+1,idCuentaOrigen,origen.getSaldo(idCuentaOrigen),cantidad,fecha,"transferencia");
-			m1.setMovimiento(Movimiento.last()+1, idCuentaOrigen, cantidad, fecha, "transferencia");
-			m2=new Movimiento(Movimiento.last()+1,idCuentaDestino,destino.getSaldo(idCuentaDestino),cantidad,fecha,"transferencia");
-			m2.setMovimiento(Movimiento.last()+1, idCuentaDestino, cantidad, fecha, "transferencia");
-			resultado=true;
-			
-		}
-	}catch(SQLException ex) {
-			ex.printStackTrace();
-	}
-	return resultado;
-}
+ 
  
 static Cuenta leerCuenta(String mensaje) {
     Scanner sc=new Scanner(System.in);

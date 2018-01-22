@@ -25,7 +25,7 @@ public class Cuenta {
 	public void crearCuenta(int numeroCuenta,double saldo) {
 		this.numeroCuenta=numeroCuenta;
 		this.saldo=saldo;
-		try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/bancabd", "root", "toor"))
+		try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/bancabd", "root", "root"))
 		{	
 			String sql="insert into cuentas(numeroCuenta,saldo,tipoCuenta) values(?,?,?)";
 			PreparedStatement ps = cn.prepareStatement(sql);
@@ -40,7 +40,7 @@ public class Cuenta {
 
 	public static Cuenta buscarCuenta(int numeroCuenta) {
 		Cuenta c=null;
-		try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/bancabd", "root", "toor"))
+		try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/bancabd", "root", "root"))
 		{	
 			String sql="select * from cuentas where numeroCuenta=" + "'"+numeroCuenta+"'" ;
 			Statement st=cn.createStatement();
@@ -56,7 +56,7 @@ public class Cuenta {
 	public void ingresar(double cant) {
 		saldo=this.getSaldo(numeroCuenta);
 		saldo+=cant;
-		try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/bancabd", "root", "toor"))
+		try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/bancabd", "root", "root"))
 		{
 		
 			String sql="update cuentas set saldo=? where numeroCuenta=?";
@@ -72,7 +72,7 @@ public class Cuenta {
 	public void extraer(double cant) {
 		saldo=this.getSaldo(numeroCuenta);
 		saldo-=cant;
-		try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/bancabd", "root", "toor"))
+		try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/bancabd", "root", "root"))
 		{
 		
 			String sql="update cuentas set saldo=? where numeroCuenta=?";
@@ -88,7 +88,7 @@ public class Cuenta {
 	public double getSaldo(int numeroCuenta) {
 		double saldo=0.0;
 		
-		try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/bancabd", "root", "toor"))
+		try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/bancabd", "root", "root"))
 		{	
 			String sql="select saldo from cuentas where numeroCuenta=" + "'"+numeroCuenta+"'" ;
 			Statement st=cn.createStatement();

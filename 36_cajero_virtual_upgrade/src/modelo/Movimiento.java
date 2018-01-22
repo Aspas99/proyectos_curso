@@ -43,7 +43,7 @@ public class Movimiento extends Cuenta {
  
 public static  int last() {
 	int last=0;
-	try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/bancabd", "root", "toor"))
+	try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/bancabd", "root", "root"))
 	{	
 		String sql="select max(idMovimiento) from movimientos ";
 		Statement st=cn.createStatement();
@@ -62,7 +62,7 @@ public static  int last() {
 
 public void setMovimiento(int idMovimiento, int idCuenta, double cantidad, Date fecha,String operacion) {
 	
-	try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/bancabd", "root", "toor"))
+	try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/bancabd", "root", "root"))
 	{	
 		switch (operacion) {
 			case "ingreso":{
@@ -87,7 +87,9 @@ public void setMovimiento(int idMovimiento, int idCuenta, double cantidad, Date 
 
 		String currentTime = sdf.format(dt);
 		
-		//java.sql.Date fechasql=new java.sql.Date(fecha.getTime());
+		//java.sql.Date fechasql=new java.sql.Date(fecha.getTime());<-Este es el paso que habria que hacerle, no el 
+		//SimpleDateFormat ,que en este caso si que se lo ha "tragado" MySQL pero que otras BBDD no tienen porqué 
+		//No he considerado autonumerico el idMovimiento , pero se podia haber obviado
 		String sql="insert into movimientos(idMovimiento,idCuenta,cantidad,fecha,operacion) values(?,?,?,?,?)";
 		PreparedStatement ps = cn.prepareStatement(sql);
 		ps.setInt(1,idMovimiento);
@@ -105,16 +107,18 @@ public void setMovimiento(int idMovimiento, int idCuenta, double cantidad, Date 
 
 public List<Movimiento> listaMovimientos(int numMovimientos){
 	ArrayList<Movimiento> movimientos = new ArrayList<>();
-	try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/bancabd", "root", "toor");) {
+	try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/bancabd", "root", "root");) {
 		
 		Statement st=cn.createStatement();
 		
 		String sql="select * from movimientos where idCuenta=" + this.idCuenta + " order by idMovimiento desc limit " + numMovimientos ;
 		ResultSet rs=st.executeQuery(sql);
 			while (rs.next()) {
-				java.util.Date fechautil=new java.util.Date(rs.getDate("fecha").getTime());
+				//java.util.Date fechautil=new java.util.Date(rs.getDate("fecha").getTime());//No es necesario 
+				//movimientos.add(new Movimiento(rs.getInt("idMovimiento"),rs.getInt("idCuenta")
+				//		,rs.getDouble("cantidad"),rs.getDate("fecha"),rs.getString("operacion")));
 				movimientos.add(new Movimiento(rs.getInt("idMovimiento"),rs.getInt("idCuenta")
-						,rs.getDouble("cantidad"),fechautil,rs.getString("operacion")));
+								,rs.getDouble("cantidad"),rs.getTimestamp("fecha"),rs.getString("operacion")));
 			}		
 		
 	}catch(SQLException ex) {
@@ -138,6 +142,36 @@ public String getOperacion() {
 	return operacion;
 }
 
+public  boolean transferencia(int idCuentaOrigen,int idCuentaDestino,double cantidad) {
+	Cuenta origen=null;
+	Cuenta destino=null;
+	
+	boolean resultado=false;
+	java.util.Date fecha=new Date();
+	Movimiento m1=null,m2=null;
+	
+	try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/bancabd", "root", "root"))
+	{	
+		origen=new Cuenta(idCuentaOrigen,0);
+	    destino=new Cuenta(idCuentaDestino,0);
+
+		double saldoorigen=origen.getSaldo(idCuentaOrigen);
+		if (saldoorigen>=cantidad) {
+			//java.sql.Date fechasql=new java.sql.Date(fecha.getTime());
+			origen.extraer(cantidad);
+			destino.ingresar(cantidad);
+			m1=new Movimiento(Movimiento.last()+1,idCuentaOrigen,origen.getSaldo(idCuentaOrigen),cantidad,fecha,"transferencia");
+			m1.setMovimiento(Movimiento.last()+1, idCuentaOrigen, cantidad, fecha, "transferencia");
+			m2=new Movimiento(Movimiento.last()+1,idCuentaDestino,destino.getSaldo(idCuentaDestino),cantidad,fecha,"transferencia");
+			m2.setMovimiento(Movimiento.last()+1, idCuentaDestino, cantidad, fecha, "transferencia");
+			resultado=true;
+			
+		}
+	}catch(SQLException ex) {
+			ex.printStackTrace();
+	}
+	return resultado;
+}
 
 
 }
