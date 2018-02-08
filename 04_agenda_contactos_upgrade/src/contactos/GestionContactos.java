@@ -59,7 +59,7 @@ public class GestionContactos  {
 	
 	
 	public void eliminar(String email) {
-		try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda", "root", "toor");) {
+		try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda", "root", "root");) {
 			
 			this.st=cn.createStatement();
 			
@@ -84,7 +84,7 @@ public class GestionContactos  {
 
 	public Contacto buscar(String email) {
 		Contacto contacto=null;
-		try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda", "root", "toor");) {
+		try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda", "root", "root");) {
 			
 			this.st=cn.createStatement();
 			sql="select * from contactos where email='" + email +"'";
@@ -107,7 +107,7 @@ public class GestionContactos  {
 		//que si se quiere cambiar a otra estructura sea más facil cambiarlo en el codigo de llamada
 		
 		ArrayList<Contacto> contactos = new ArrayList<>();
-		try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda", "root", "toor");) {
+		try (Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda", "root", "root");) {
 			
 			this.st=cn.createStatement();
 			
