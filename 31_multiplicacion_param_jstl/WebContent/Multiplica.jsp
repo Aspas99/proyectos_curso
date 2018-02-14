@@ -12,10 +12,10 @@
 
 <table border='1'>
 <h1> Tabla del ${param.nombre} </h1>
-<c:set var=”i”  value="${param.nombre}"/> 
-<c:forEach var="con" begin="1" end="${param.nombre}">
+<c:set var='i'  value="${param.nombre}"/> 
+<c:forEach var="con" begin="1" end="10">
 	<tr>
-	 <td>${con.value} X</td><td>${param.nombre}=</td>${i*con.value}<td></td> 
+	 <td>${con} X</td><td>${param.nombre}=</td><td>${con*param.nombre}</td> 
 		</tr>
 
 </c:forEach>

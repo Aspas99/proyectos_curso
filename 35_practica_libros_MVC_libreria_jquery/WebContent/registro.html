@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Registrese como usuario en la aplicación</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+//Usuario y pwd != cadena vacia
+//email debe ser válido
+//telefono numérico
+function comprobar(){
+	//recogemos los valores de los inputs
+	
+	if ($("#us").val()=="" || $("#pw").val()=="" || $("#em").val()=="" ||$("#tel").val()=="" ){
+		alert("No se admiten campos en blanco:debe introducir un valor");
+		return false;
+	}else{
+		return true;
+	}
+	
+}
+function compruebaEmail(){
+	
+	var email=document.getElementById("em");
+	var pos=email.value.search("@");
+	var punto=email.value.search(".");
+	if ( pos==-1 || punto==-1){
+		alert("El campo email debe tener valores correctos ( conteniendo @ y .)");
+		return false;
+	}else{
+		return true;
+	}
+}	
+
+function compruebaTelefono(){
+		var tel=document.getElementById("tel");
+
+		if (isNaN(tel)){
+			alert("El campo telefono deben tene valores correctos (numérico )");
+			return false;
+		}else{
+			return true;
+		}	
+}
+//Se podria tener una funcion adicional que hiciera un AND de las tres funciones y devolviera el resultado
+
+</script>
+</head>
+<body>
+<form action="Controller?op=doRegistro" onsubmit="return (comprobar() && compruebaTelefono() &&compruebaEmail()) ;"  method="post" >
+	Introduzca el nombre del usuario: <input id="us" type="text" name="usuario"/><br/><br/>
+	Introduzca su clave: <input id="pw" type="password" name="password"/><br/><br/>
+	Introduzca el email: <input id="em" type="text"  name="email"/><br/><br/>
+	Introduzca el telefono: <input id="tel" type="text"  name="telefono"/>
+	<!--  Introduzca el telefono: <input id="tel" type="number" max="999999999" min="1" name="telefono"/>  <br/><br/>-->
+	<input type="submit" value="Guardar" />
+</form>	
+<a href="Controller?op=toLogin" >¿Introdujo mal su usuario o clave?</a>
+</body>
+</html>
