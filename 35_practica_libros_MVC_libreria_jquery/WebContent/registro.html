@@ -33,7 +33,7 @@ function compruebaEmail(){
 }	
 
 function compruebaTelefono(){
-		var tel=document.getElementById("tel");
+		var tel=$("#tel");
 
 		if (isNaN(tel)){
 			alert("El campo telefono deben tene valores correctos (numérico )");
@@ -51,7 +51,7 @@ function compruebaTelefono(){
 	Introduzca el nombre del usuario: <input id="us" type="text" name="usuario"/><br/><br/>
 	Introduzca su clave: <input id="pw" type="password" name="password"/><br/><br/>
 	Introduzca el email: <input id="em" type="text"  name="email"/><br/><br/>
-	Introduzca el telefono: <input id="tel" type="text"  name="telefono"/>
+	Introduzca el telefono: <input id="tel" onblur="compruebaTelefono()" type="text"  name="telefono"/>
 	<!--  Introduzca el telefono: <input id="tel" type="number" max="999999999" min="1" name="telefono"/>  <br/><br/>-->
 	<input type="submit" value="Guardar" />
 </form>	
