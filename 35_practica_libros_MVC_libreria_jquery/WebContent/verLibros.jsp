@@ -34,13 +34,20 @@ if (libros==null || libros.size()==0){%>
 	<center>
 	<table border=1>
 		<th>Titulo</th><th>Autor</th><th>Precio</th>
+		
 		<%for(int i=0;i<carrito.size();i++){ %>
+			
 		 	<tr><td><%=carrito.get(i).getTitulo() %></td><td><%=carrito.get(i).getAutor() %>
-		 </td><td><%=carrito.get(i).getPrecio() %></td><td>
-		 <a href="Controller?op=doVentas&idTema=<%=request.getParameter("idTema") %>">Comprar</a></td></tr>
+		 </td><td><%=carrito.get(i).getPrecio() %></td>
+		 <td><a href="Controller?op=doEliminar&idTema=<%=carrito.get(i).getIdTema() %>&pos=<%=i%> ">Eliminar</a></td>
+		 </tr>
+		
 		 <%} %>
 	</table>
 	
+	<form action="Controller?op=doVentas&idTema=<%=request.getParameter("idTema") %>" method="post">
+	<input type="submit"  value="Comprar" /></form>
+	 
 	</center>
 <%} %>
 

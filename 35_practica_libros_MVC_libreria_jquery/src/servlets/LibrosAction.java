@@ -19,7 +19,7 @@ public class LibrosAction extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			GestionLibros glibros = new GestionLibros();
 			
-			System.out.println("IdTema:" +  request.getParameter("idTema"));
+			//System.out.println("IdTema:" +  request.getParameter("idTema"));
 			int idTema = Integer.parseInt(request.getParameter("idTema"));
 			if (idTema!=0) {
 				request.setAttribute("libros", glibros.verLibrosporTema(idTema));

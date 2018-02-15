@@ -53,6 +53,9 @@ public class Controller extends HttpServlet {
 		case "doVentas":
 				url="VentasAction";
 				break;
+		case "doEliminar":
+			url="EliminarAction";
+			break;	
 		}
 		request.getRequestDispatcher(url).forward(request, response); //usamos la url para redirigir a la pagina/servlet corresp
 	}
