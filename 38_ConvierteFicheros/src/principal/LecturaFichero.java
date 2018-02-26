@@ -10,14 +10,9 @@ import java.io.PrintStream;
 public class LecturaFichero {
 
 	public static void main(String[] args) {
-		String fichero="c:\\temporal\\NIF.dat";
-		String volcado="c:\\temporal\\NIF_Formateado.dat";
+		String fichero=args[0];
+		String volcado=args[1];
 		try (FileReader fr=new FileReader(fichero);BufferedReader br=new BufferedReader(fr);PrintStream wr=new PrintStream(volcado)){
-			//String cadena=br.readLine();
-			/*while (cadena!=null){
-				System.out.println(cadena);
-				cadena=br.readLine();
-			}*/
 			br.lines().map(s->s=s.substring(1, s.length())).forEach(wr::println);
 			
 		} catch (FileNotFoundException e) {
